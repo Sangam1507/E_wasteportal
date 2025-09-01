@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Dashboard</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fafafa;
+      color: #222;
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #28a745; /* Green header */
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
+      color: white;
+    }
+
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: white; /* White text for contrast */
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #d4edda; /* Light green on hover */
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .dashboard-welcome {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .dashboard-welcome h2 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+      color: #28a745;
+    }
+    .dashboard-welcome p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      padding: 1.5rem 2rem;
+      flex: 1 1 200px;
+      max-width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
+    }
+    .card-icon {
+      font-size: 2.5rem;
+      color: #28a745;
+      margin-bottom: 0.5rem;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+      color: #222;
+    }
+    .card-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .recent-activity {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .recent-activity h3 {
+      margin-bottom: 1rem;
+      color: #28a745;
+      font-weight: 700;
+    }
+    .recent-list {
+      list-style: none;
+      border-top: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.07);
+      background: white;
+    }
+    .recent-list li {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      color: #333;
+      transition: background-color 0.2s ease;
+      cursor: default;
+    }
+    .recent-list li:last-child {
+      border-bottom: none;
+    }
+    .recent-list li:hover {
+      background-color: #f9fef9;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background-color: #121212;
+      color: #eee;
+    }
+    body.dark header {
+      background-color: #1f1f1f;
+      box-shadow: none;
+      color: #ccc;
+    }
+    body.dark nav a {
+      color: #bbb;
+    }
+    body.dark nav a:hover {
+      color: #6fcf97;
+    }
+    body.dark .card {
+      background-color: #222;
+      box-shadow: 0 2px 8px rgb(255 255 255 / 0.05);
+      color: #ddd;
+    }
+    body.dark .card-icon {
+      color: #6fcf97;
+    }
+    body.dark .recent-list {
+      background-color: #222;
+      border-color: #444;
+      box-shadow: none;
+    }
+    body.dark .recent-list li {
+      border-color: #333;
+      color: #ddd;
+    }
+    body.dark .recent-list li:hover {
+      background-color: #2a2a2a;
+    }
+
+    /* Dark Mode toggle button */
+    .toggle-dark {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+      transition: background-color 0.3s ease;
+      z-index: 999;
+    }
+    .toggle-dark:hover {
+      background-color: #218838;
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav a {
+        display: inline-block;
+        margin: 0 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-dark" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">🌓</button>
+
+  <header>
+    <h1>User Dashboard</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="pickup-request.html">Request Pickup</a>
+      <a href="recycler-centers.html">Recycling Centers</a>
+      <a href="complaint.html">Complaint</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dashboard-welcome" aria-live="polite">
+      <h2>Welcome Back!</h2>
+      <p>Here is your dashboard summary:</p>
+    </section>
+
+    <section class="cards" aria-label="Dashboard summary cards">
+      <article class="card" tabindex="0">
+        <div class="card-icon" aria-hidden="true">📦</div>
+        <div class="card-title">Pickup Requests Made</div>
+        <div class="card-value">3</div>
+      </article>
+      <article class="card" tabindex="0">
+        <div class="card-icon" aria-hidden="true">⚠️</div>
+        <div class="card-title">Complaints Submitted</div>
+        <div class="card-value">1</div>
+      </article>
+      <article class="card" tabindex="0">
+        <div class="card-icon" aria-hidden="true">📅</div>
+        <div class="card-title">Last Pickup Date</div>
+        <div class="card-value">2025-08-01</div>
+      </article>
+    </section>
+
+    <section class="recent-activity" aria-label="Recent activity">
+      <h3>Recent Complaints</h3>
+      <ul class="recent-list">
+        <li>2025-08-05: Delay in pickup at Zone 4</li>
+        <li>2025-07-28: Unresponsive recycler center</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 E-Waste portal</p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.querySelector('.toggle-dark');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if(document.body.classList.contains('dark')) {
+        localStorage.setItem('ewaste-dark-mode', 'enabled');
+      } else {
+        localStorage.setItem('ewaste-dark-mode', 'disabled');
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if(localStorage.getItem('ewaste-dark-mode') === 'enabled') {
+        document.body.classList.add('dark');
+      }
+    });
+  </script>
+</body>
+</html>

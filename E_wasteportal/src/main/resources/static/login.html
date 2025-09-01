@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - E-Waste Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('images/Electronic-Waste-Recycling-1000x600.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      background-blend-mode: multiply;
+      color: #f1f1f1;
+    }
+    .navbar-custom {
+      background-color: #28a745 !important;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+      color: #fff !important;
+    }
+    .navbar-custom .nav-link:hover {
+      color: #d4edda !important;
+    }
+    .login-card {
+      max-width: 450px;
+      margin: auto;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+    body.dark-mode .login-card {
+      background: rgba(30,30,30,0.95);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">E-Waste Portal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="pickup-request.html">Request Pickup</a></li>
+          <li class="nav-item"><a class="nav-link" href="recycler-centers.html">Centers</a></li>
+          <li class="nav-item"><a class="nav-link" href="complaint.html">Complaint</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="login.html">Login</a></li>
+          <li class="nav-item"><button id="darkModeToggle" class="btn btn-outline-light btn-sm ms-lg-2">🌓</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Tabs -->
+  <main class="flex-grow-1 d-flex align-items-center">
+    <div class="login-card animate__animated animate__fadeInUp">
+      <ul class="nav nav-tabs mb-3" id="loginTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab">User Login</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab">Admin Login</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="loginTabsContent">
+        <!-- User Login -->
+        <div class="tab-pane fade show active" id="user" role="tabpanel">
+          <h4 class="text-center text-success mb-3">User Login</h4>
+          <form action="/user-login" method="POST">
+            <div class="mb-3">
+              <label for="userEmail" class="form-label fw-semibold">Email address</label>
+              <input type="email" class="form-control" id="userEmail" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+              <label for="userPassword" class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="userPassword" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="userRemember">
+              <label class="form-check-label" for="userRemember">Remember me</label>
+            </div>
+           <div style="display: flex; gap: 10px;">
+           <div style="display: flex; gap: 10px;">
+           <button type="submit" class="btn btn-success" style="flex: 1;">Login</button>
+            <button type="button" class="btn btn-success" style="flex: 1;" onclick="location.href='register.html'">Register</button>
+          </div>
+
+</div>
+
+
+          </form>
+        </div>
+
+        <!-- Admin Login -->
+        <div class="tab-pane fade" id="admin" role="tabpanel">
+          <h4 class="text-center text-danger mb-3">Admin Login</h4>
+          <form action="/admin-login" method="POST">
+            <div class="mb-3">
+              <label for="adminUsername" class="form-label fw-semibold">Admin Username</label>
+              <input type="text" class="form-control" id="adminUsername" name="username" placeholder="Enter admin username" required>
+            </div>
+            <div class="mb-3">
+              <label for="adminPassword" class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="adminPassword" name="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-danger w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Dark Mode Toggle
+    document.getElementById('darkModeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('dark-mode',
+        document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+    });
+    if(localStorage.getItem('dark-mode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+  <script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = this.email.value;
+    const password = this.password.value;
+
+    try {
+        const response = await fetch('http://localhost:8080/api/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert('Login successful!');
+            // Save user data to localStorage
+            localStorage.setItem('user', JSON.stringify(result));
+            window.location.href = 'dashboard.html';
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Network error. Please try again.');
+    }
+});
+</script>
+</body>
+</html>

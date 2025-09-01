@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: #f9f9f9;
+      margin: 0;
+    }
+    header, footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      animation: fadeIn 1s ease-in-out;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffeb3b;
+    }
+    .form-section {
+      max-width: 900px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: slideUp 0.8s ease forwards;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .stat-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+    }
+    .dark {
+      background-color: #1e1e1e;
+      color: white;
+    }
+    .dark header {
+      background-color: #333;
+    }
+    .dark .stat-card {
+      background-color: #2c2c2c;
+      color: white;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .toggle-dark {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-dark:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-dark" onclick="document.body.classList.toggle('dark')">🌓 Toggle Dark Mode</button>
+
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="admin-panel.html">Dashboard</a>
+      <a href="pickup-request.html">View Pickup Requests</a>
+      <a href="complaint.html">Manage Complaints</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Admin Overview</h2>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <h3>Total Users</h3>
+          <p>145</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <h3>Pending Pickup Requests</h3>
+          <p>12</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <h3>Resolved Complaints</h3>
+          <p>32</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 E-Waste Portal</p>
+  </footer>
+</body>
+</html>
